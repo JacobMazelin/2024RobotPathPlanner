@@ -14,6 +14,7 @@ import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Pose3d;
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
@@ -79,6 +80,8 @@ public class Swerve extends SubsystemBase  implements WiredSubsystem {
         swerveDrive.stateStdDevs = Constants.LimelightConstants.driveMeasurementStdDevs;
         swerveDrive.visionMeasurementStdDevs = Constants.LimelightConstants.visionMeasurementStdDevs;
 
+        swerveDrive.setGyroOffset(new Rotation3d(0, 0, 3.14));
+
 
         AutoBuilder.configureHolonomic(
             this::getRobotPose, 
@@ -89,13 +92,13 @@ public class Swerve extends SubsystemBase  implements WiredSubsystem {
             () -> false, 
             this);
 
-        PPHolonomicDriveController.setRotationTargetOverride(this::getRotationOverride);
+        //PPHolonomicDriveController.setRotationTargetOverride(this::getRotationOverride);
 
         constraints = new PathConstraints(
-            5.2, 
-            6, 
-            Units.degreesToRadians(720),
-            Units.degreesToRadians(720));
+            1, 
+            2, 
+            Units.degreesToRadians(180),
+            Units.degreesToRadians(360));
 
         swerveState = SwerveState.HOME;
     }
@@ -271,9 +274,9 @@ public class Swerve extends SubsystemBase  implements WiredSubsystem {
 
         if(Limelight.getInstance().getPose3dData().isPresent()) {
 
-            swerveDrive.addVisionMeasurement(
-                Limelight.getInstance().getPose3dData().get().toPose2d(), 
-                Limelight.getInstance().getTimestampData());
+            //swerveDrive.addVisionMeasurement(
+            //    Limelight.getInstance().getPose3dData().get().toPose2d(), 
+            //    Limelight.getInstance().getTimestampData());
         }
     }
 

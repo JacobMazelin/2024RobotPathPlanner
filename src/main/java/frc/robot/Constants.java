@@ -26,7 +26,7 @@ public class Constants {
 
     public class SwerveConstants {
 
-        public static final double maxSwerveSpeedMS = Units.feetToMeters(17);
+        public static final double maxSwerveSpeedMS = 1;//Units.feetToMeters(17);
         public static final File swerveDirectory = new File(Filesystem.getDeployDirectory(), "swerve");
 
         public static final double XboxJoystickDeadband = 0.01;
@@ -36,8 +36,8 @@ public class Constants {
         public static final Matter Chassis = new Matter(new Translation3d(0, 0, Units.inchesToMeters(8)), RobotMass);
 
         public static final HolonomicPathFollowerConfig swervePathPlannerConfig = new HolonomicPathFollowerConfig(
-            new PIDConstants(5, 0, 0), 
-            new PIDConstants(5, 0, 0.01), 
+            new PIDConstants(0.0001, 0, 0.01), 
+            new PIDConstants(0.0001, 0, 0.01), 
             maxSwerveSpeedMS, 
             0.38, 
             new ReplanningConfig(), 
